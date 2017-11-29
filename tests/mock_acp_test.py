@@ -50,9 +50,6 @@ class TestE2E(unittest.TestCase):
     def test_name_prefix_BastionHostLinuxACPCICD(self):
         self.assertEqual(self.result['mock-acp']["aws_instance.BastionHostLinuxACPCICD"]["tags.Name"], "dq-acpcicd-ec2-linux")
 
-    def test_name_prefix_ACPCICDRouteToInternet(self):
-        self.assertEqual(self.result['mock-acp']["aws_internet_gateway.ACPCICDRouteToInternet"]["tags.Name"], "dq-acpcicd-igw")
-
     def test_name_prefix_BastionsACPCICD(self):
         self.assertEqual(self.result['mock-acp']["aws_security_group.BastionsACPCICD"]["tags.Name"], "dq-acpcicd-sg")
 
@@ -72,9 +69,6 @@ class TestE2E(unittest.TestCase):
 
     def test_name_prefix_BastionHostLinuxACPOPS(self):
         self.assertEqual(self.result['mock-acp']["aws_instance.BastionHostLinuxACPOPS"]["tags.Name"], "dq-acpops-ec2-linux")
-
-    def test_name_prefix_ACPOPSRouteToInternet(self):
-        self.assertEqual(self.result['mock-acp']["aws_internet_gateway.ACPOPSRouteToInternet"]["tags.Name"], "dq-acpops-igw")
 
     def test_name_prefix_BastionsACPOPS(self):
         self.assertEqual(self.result['mock-acp']["aws_security_group.BastionsACPOPS"]["tags.Name"], "dq-acpops-sg")
@@ -96,9 +90,6 @@ class TestE2E(unittest.TestCase):
     def test_name_prefix_BastionHostLinuxACPPROD(self):
         self.assertEqual(self.result['mock-acp']["aws_instance.BastionHostLinuxACPPROD"]["tags.Name"], "dq-acpprod-ec2-linux")
 
-    def test_name_prefix_ACPPRODRouteToInternet(self):
-        self.assertEqual(self.result['mock-acp']["aws_internet_gateway.ACPPRODRouteToInternet"]["tags.Name"], "dq-acpprod-igw")
-
     def test_name_prefix_BastionsACPPROD(self):
         self.assertEqual(self.result['mock-acp']["aws_security_group.BastionsACPPROD"]["tags.Name"], "dq-acpprod-sg")
 
@@ -118,9 +109,6 @@ class TestE2E(unittest.TestCase):
 
     def test_name_prefix_BastionHostLinuxACPVPN(self):
         self.assertEqual(self.result['mock-acp']["aws_instance.BastionHostLinuxACPVPN"]["tags.Name"], "dq-acpvpn-ec2-linux")
-
-    def test_name_prefix_ACPVPNRouteToInternet(self):
-        self.assertEqual(self.result['mock-acp']["aws_internet_gateway.ACPVPNRouteToInternet"]["tags.Name"], "dq-acpvpn-igw")
 
     def test_name_prefix_BastionsACPVPN(self):
         self.assertEqual(self.result['mock-acp']["aws_security_group.BastionsACPVPN"]["tags.Name"], "dq-acpvpn-sg")
