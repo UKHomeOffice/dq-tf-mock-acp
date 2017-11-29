@@ -30,7 +30,7 @@ locals {
 resource "aws_instance" "BastionHostLinuxACPCICD" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.ACPCICDSubnet.id}}"
+  subnet_id              = "${aws_subnet.ACPCICDSubnet.id}"
   vpc_security_group_ids = ["${aws_security_group.BastionsACPCICD.id}"]
 
   tags {
@@ -67,7 +67,7 @@ resource "aws_security_group" "BastionsACPCICD" {
 resource "aws_instance" "BastionHostLinuxACPOPS" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.ACPOPSSubnet.id}}"
+  subnet_id              = "${aws_subnet.ACPOPSSubnet.id}"
   vpc_security_group_ids = ["${aws_security_group.BastionsACPOPS.id}"]
 
   tags {
@@ -104,7 +104,7 @@ resource "aws_security_group" "BastionsACPOPS" {
 resource "aws_instance" "BastionHostLinuxACPVPN" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.ACPVPNSubnet.id}}"
+  subnet_id              = "${aws_subnet.ACPVPNSubnet.id}"
   vpc_security_group_ids = ["${aws_security_group.BastionsACPVPN.id}"]
 
   tags {
@@ -141,7 +141,7 @@ resource "aws_security_group" "BastionsACPVPN" {
 resource "aws_instance" "BastionHostLinuxACPPROD" {
   ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
   instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.ACPPRODSubnet.id}}"
+  subnet_id              = "${aws_subnet.ACPPRODSubnet.id}"
   vpc_security_group_ids = ["${aws_security_group.BastionsACPPROD.id}"]
 
   tags {
