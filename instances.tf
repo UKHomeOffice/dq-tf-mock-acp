@@ -18,14 +18,12 @@ data "aws_ami" "linux_connectivity_tester" {
   ]
 }
 
-
 locals {
-  acpcicd_tag =  "${var.name_prefix}acpcicd-"
-  acpops_tag = "${var.name_prefix}acpops-"
+  acpcicd_tag = "${var.name_prefix}acpcicd-"
+  acpops_tag  = "${var.name_prefix}acpops-"
   acpprod_tag = "${var.name_prefix}acpprod-"
-  acpvpn_tag = "${var.name_prefix}acpvpn-"
+  acpvpn_tag  = "${var.name_prefix}acpvpn-"
 }
-
 
 #### ACPCICD
 
@@ -40,7 +38,6 @@ resource "aws_instance" "BastionHostLinuxACPCICD" {
   }
 
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-
 }
 
 resource "aws_security_group" "BastionsACPCICD" {
@@ -78,7 +75,6 @@ resource "aws_instance" "BastionHostLinuxACPOPS" {
   }
 
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-
 }
 
 resource "aws_security_group" "BastionsACPOPS" {
@@ -116,7 +112,6 @@ resource "aws_instance" "BastionHostLinuxACPVPN" {
   }
 
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-
 }
 
 resource "aws_security_group" "BastionsACPVPN" {
@@ -154,7 +149,6 @@ resource "aws_instance" "BastionHostLinuxACPPROD" {
   }
 
   user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-
 }
 
 resource "aws_security_group" "BastionsACPPROD" {
