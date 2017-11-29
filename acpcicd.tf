@@ -10,14 +10,6 @@ resource "aws_vpc" "acpcicdvpc" {
   }
 }
 
-resource "aws_internet_gateway" "ACPCICDRouteToInternet" {
-  vpc_id = "${aws_vpc.acpcicdvpc.id}"
-
-  tags {
-    Name = "${local.acpcicd_name_prefix}igw"
-  }
-}
-
 resource "aws_subnet" "ACPCICDSubnet" {
   vpc_id                  = "${aws_vpc.acpcicdvpc.id}"
   cidr_block              = "${var.acpcicd_vpc_subnet_cidr_block}"
