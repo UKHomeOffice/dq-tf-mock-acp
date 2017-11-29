@@ -1,17 +1,12 @@
-variable "cidr_block" {}
-variable "vpc_subnet_cidr_block" {}
-variable "az" {}
-variable "name_prefix" {}
-
 locals {
-  name_prefix = "${var.name_prefix}acpcicd-"
+  acpcicd_name_prefix = "${var.name_prefix}acpcicd-"
 }
 
 resource "aws_vpc" "acpcicdvpc" {
-  cidr_block = "${var.cidr_block}"
+  cidr_block = "${var.acpcicd_cidr_block}"
 
   tags {
-    Name = "${local.name_prefix}VPC"
+    Name = "${local.acpcicd_name_prefix}vpc"
   }
 }
 
@@ -19,17 +14,17 @@ resource "aws_internet_gateway" "ACPCICDRouteToInternet" {
   vpc_id = "${aws_vpc.acpcicdvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}IGW"
+    Name = "${local.acpcicd_name_prefix}igw"
   }
 }
 
 resource "aws_subnet" "ACPCICDSubnet" {
   vpc_id                  = "${aws_vpc.acpcicdvpc.id}"
-  cidr_block              = "${var.vpc_subnet_cidr_block}"
+  cidr_block              = "${var.acpcicd_vpc_subnet_cidr_block}"
   map_public_ip_on_launch = true
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}subnet"
+    Name = "${local.acpcicd_name_prefix}subnet"
   }
 }
