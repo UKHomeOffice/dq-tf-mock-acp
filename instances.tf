@@ -47,7 +47,7 @@ resource "aws_security_group" "BastionsACPCICD" {
   vpc_id = "${aws_vpc.acpcicdvpc.id}"
 
   tags {
-    Name = "${local.acpcicd_tag}-sg"
+    Name = "${local.acpcicd_tag}sg"
   }
 
   ingress {
@@ -85,7 +85,7 @@ resource "aws_security_group" "BastionsACPOPS" {
   vpc_id = "${aws_vpc.acpopsvpc.id}"
 
   tags {
-    Name = "${local.acpops_tag}-sg"
+    Name = "${local.acpops_tag}sg"
   }
 
   ingress {
@@ -123,7 +123,7 @@ resource "aws_security_group" "BastionsACPVPN" {
   vpc_id = "${aws_vpc.acpvpnvpc.id}"
 
   tags {
-    Name = "${local.acpvpn_tag}-sg"
+    Name = "${local.acpvpn_tag}sg"
   }
 
   ingress {
