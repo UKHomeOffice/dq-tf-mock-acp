@@ -11,7 +11,7 @@ resource "aws_vpc" "acpopsvpc" {
 }
 
 resource "aws_internet_gateway" "ACPOPSRouteToInternet" {
-  vpc_id = "${aws_vpc.acpcicdvpc.id}"
+  vpc_id = "${aws_vpc.acpopsvpc.id}"
 
   tags {
     Name = "${local.acpops_name_prefix}igw"
