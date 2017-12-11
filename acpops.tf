@@ -10,6 +10,14 @@ resource "aws_vpc" "acpopsvpc" {
   }
 }
 
+resource "aws_route_table" "acpops_route_table" {
+  vpc_id = "${aws_vpc.acpopsvpc.id}"
+
+  tags {
+    Name = "${local.acpops_name_prefix}route-table"
+  }
+}
+
 resource "aws_subnet" "ACPOPSSubnet" {
   vpc_id                  = "${aws_vpc.acpopsvpc.id}"
   cidr_block              = "${var.acpops_vpc_subnet_cidr_block}"

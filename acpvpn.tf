@@ -10,6 +10,14 @@ resource "aws_vpc" "acpvpnvpc" {
   }
 }
 
+resource "aws_route_table" "acpvpn_route_table" {
+  vpc_id = "${aws_vpc.acpvpnvpc.id}"
+
+  tags {
+    Name = "${local.acpvpn_name_prefix}route-table"
+  }
+}
+
 resource "aws_subnet" "ACPVPNSubnet" {
   vpc_id                  = "${aws_vpc.acpvpnvpc.id}"
   cidr_block              = "${var.acpvpn_vpc_subnet_cidr_block}"
