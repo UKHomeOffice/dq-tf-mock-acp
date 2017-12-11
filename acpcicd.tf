@@ -10,6 +10,14 @@ resource "aws_vpc" "acpcicdvpc" {
   }
 }
 
+resource "aws_route_table" "acpcicd_route_table" {
+  vpc_id = "${aws_vpc.acpcicdvpc.id}"
+
+  tags {
+    Name = "${local.acpcicd_name_prefix}route-table"
+  }
+}
+
 resource "aws_subnet" "ACPCICDSubnet" {
   vpc_id                  = "${aws_vpc.acpcicdvpc.id}"
   cidr_block              = "${var.acpcicd_vpc_subnet_cidr_block}"
