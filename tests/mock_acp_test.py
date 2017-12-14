@@ -1,4 +1,4 @@
-# pylint: disable=missing-docstring, line-too-long, protected-access, E1101, C0202, E0602, W0109
+# pylint: disable=missing-docstring, line-too-long, protected-access, E1101, C0202, E0602, W0109, R0904
 import unittest
 from runner import Runner
 
@@ -31,6 +31,14 @@ class TestE2E(unittest.TestCase):
               acpvpn_vpc_subnet_cidr_block  = "10.4.1.0/24"
               az                            = "eu-west-2a"
               name_prefix                   = "dq-"
+              route_table_cidr_blocks       = {
+                ops_cidr = "1234"
+                apps_cidr = "1234"
+                peering_cidr = "1234"
+              }
+              vpc_peering_connection_ids    = {
+                peering_and_acpcicd = "1234"
+              }
             }
         """
         self.result = Runner(self.snippet).result
@@ -42,13 +50,13 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpcicdvpc"]["cidr_block"], "10.7.0.0/16")
 
     def test_acpcicd_subnet_cidr_block(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPCICDSubnet"]["cidr_block"], "10.7.1.0/24")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpcicd_subnet"]["cidr_block"], "10.7.1.0/24")
 
     def test_az(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPCICDSubnet"]["availability_zone"], "eu-west-2a")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpcicd_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_prefix_sg_cicd(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.ACPCICD"]["tags.Name"], "dq-acpcicd-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpcicd"]["tags.Name"], "dq-acpcicd-sg")
 
     def test_name_prefix_acpcicdvpc(self):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpcicdvpc"]["tags.Name"], "dq-acpcicd-vpc")
