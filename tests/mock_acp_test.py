@@ -32,12 +32,21 @@ class TestE2E(unittest.TestCase):
               az                            = "eu-west-2a"
               name_prefix                   = "dq-"
               route_table_cidr_blocks       = {
-                ops_cidr = "1234"
-                apps_cidr = "1234"
-                peering_cidr = "1234"
+                ops_cidr = "1.2.3.0/24"
+                apps_cidr = "1.2.3.0/24"
+                peering_cidr = "1.2.3.0/24"
               }
               vpc_peering_connection_ids    = {
                 peering_and_acpcicd = "1234"
+                peering_and_acpprod = "1234"
+                peering_and_acpops  = "1234"
+                ops_and_acpvpn      = "1234"
+              }
+              acp_private_ips               = {
+                cicd_tester_ip = "1.1.1.1"
+                prod_tester_ip = "1.1.1.1"
+                ops_tester_ip  = "1.1.1.1"
+                vpn_tester_ip  = "1.1.1.1"
               }
             }
         """
@@ -84,13 +93,13 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpprodvpc"]["cidr_block"], "10.5.0.0/16")
 
     def test_subnet_acpprod_cidr_block(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPPRODSubnet"]["cidr_block"], "10.5.1.0/24")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpprod_subnet"]["cidr_block"], "10.5.1.0/24")
 
     def test_az_prod(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPPRODSubnet"]["availability_zone"], "eu-west-2a")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpprod_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_sg_prod(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.ACPPROD"]["tags.Name"], "dq-acpprod-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpprod"]["tags.Name"], "dq-acpprod-sg")
 
     def test_name_prefix_acpprodvpc(self):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpprodvpc"]["tags.Name"], "dq-acpprod-vpc")
