@@ -8,9 +8,14 @@ locals {
 #### ACPCICD
 
 module "ACPCICD" {
-  source    = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-  subnet_id = "${aws_subnet.acpcicd_subnet.id}"
+  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data  = "LISTEN_http=0.0.0.0:80"
+  subnet_id  = "${aws_subnet.acpcicd_subnet.id}"
+  private_ip = "${var.acp_private_ips["cicd_tester_ip"]}"
+
+  tags = {
+    Name = "ec2-${var.service}-cicd-tester-${var.environment}"
+  }
 }
 
 resource "aws_security_group" "acpcicd" {
@@ -21,12 +26,12 @@ resource "aws_security_group" "acpcicd" {
   }
 
   ingress {
-    from_port = 22
-    to_port   = 22
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
 
     cidr_blocks = [
-      "0.0.0.0/0",
+      "${var.route_table_cidr_blocks["peering_cidr"]}",
     ]
   }
 
@@ -44,9 +49,14 @@ resource "aws_security_group" "acpcicd" {
 #### ACPOPS
 
 module "ACPOPS" {
-  source    = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-  subnet_id = "${aws_subnet.ACPOPSSubnet.id}"
+  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data  = "LISTEN_http=0.0.0.0:80"
+  subnet_id  = "${aws_subnet.ACPOPSSubnet.id}"
+  private_ip = "${var.acp_private_ips["ops_tester_ip"]}"
+
+  tags = {
+    Name = "ec2-${var.service}-ops-tester-${var.environment}"
+  }
 }
 
 resource "aws_security_group" "ACPOPS" {
@@ -57,12 +67,12 @@ resource "aws_security_group" "ACPOPS" {
   }
 
   ingress {
-    from_port = 22
-    to_port   = 22
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
 
     cidr_blocks = [
-      "0.0.0.0/0",
+      "${var.route_table_cidr_blocks["peering_cidr"]}",
     ]
   }
 
@@ -80,9 +90,14 @@ resource "aws_security_group" "ACPOPS" {
 #### ACPVPN
 
 module "ACPVPN" {
-  source    = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-  subnet_id = "${aws_subnet.ACPVPNSubnet.id}"
+  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data  = "LISTEN_http=0.0.0.0:80"
+  subnet_id  = "${aws_subnet.ACPVPNSubnet.id}"
+  private_ip = "${var.acp_private_ips["vpn_tester_ip"]}"
+
+  tags = {
+    Name = "ec2-${var.service}-vpn-tester-${var.environment}"
+  }
 }
 
 resource "aws_security_group" "ACPVPN" {
@@ -93,12 +108,12 @@ resource "aws_security_group" "ACPVPN" {
   }
 
   ingress {
-    from_port = 22
-    to_port   = 22
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
 
     cidr_blocks = [
-      "0.0.0.0/0",
+      "${var.route_table_cidr_blocks["peering_cidr"]}",
     ]
   }
 
@@ -115,12 +130,17 @@ resource "aws_security_group" "ACPVPN" {
 
 #### ACPPROD
 module "ACPPROD" {
-  source    = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
-  subnet_id = "${aws_subnet.ACPPRODSubnet.id}"
+  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data  = "LISTEN_http=0.0.0.0:80"
+  subnet_id  = "${aws_subnet.acpprod_subnet.id}"
+  private_ip = "${var.acp_private_ips["prod_tester_ip"]}"
+
+  tags = {
+    Name = "ec2-${var.service}-prod-tester-${var.environment}"
+  }
 }
 
-resource "aws_security_group" "ACPPROD" {
+resource "aws_security_group" "acpprod" {
   vpc_id = "${aws_vpc.acpprodvpc.id}"
 
   tags {
@@ -128,12 +148,12 @@ resource "aws_security_group" "ACPPROD" {
   }
 
   ingress {
-    from_port = 22
-    to_port   = 22
+    from_port = 80
+    to_port   = 80
     protocol  = "tcp"
 
     cidr_blocks = [
-      "0.0.0.0/0",
+      "${var.route_table_cidr_blocks["peering_cidr"]}",
     ]
   }
 
