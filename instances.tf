@@ -51,7 +51,7 @@ resource "aws_security_group" "acpcicd" {
 module "ACPOPS" {
   source     = "github.com/UKHomeOffice/connectivity-tester-tf"
   user_data  = "LISTEN_http=0.0.0.0:80"
-  subnet_id  = "${aws_subnet.ACPOPSSubnet.id}"
+  subnet_id  = "${aws_subnet.acpops_subnet.id}"
   private_ip = "${var.acp_private_ips["ops_tester_ip"]}"
 
   tags = {
@@ -59,7 +59,7 @@ module "ACPOPS" {
   }
 }
 
-resource "aws_security_group" "ACPOPS" {
+resource "aws_security_group" "acpops" {
   vpc_id = "${aws_vpc.acpopsvpc.id}"
 
   tags {
