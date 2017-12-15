@@ -9,10 +9,22 @@ variable "acpvpn_vpc_subnet_cidr_block" {}
 variable "az" {}
 variable "name_prefix" {}
 
+variable "service" {
+  default = "dq-acp"
+}
+
+variable "environment" {
+  default = "preprod"
+}
+
 variable "route_table_cidr_blocks" {
   type = "map"
 }
 
 variable "vpc_peering_connection_ids" {
+  type = "map"
+}
+
+variable "acp_private_ips" {
   type = "map"
 }
