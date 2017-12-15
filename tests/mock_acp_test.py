@@ -31,6 +31,16 @@ class TestE2E(unittest.TestCase):
               acpvpn_vpc_subnet_cidr_block  = "10.4.1.0/24"
               az                            = "eu-west-2a"
               name_prefix                   = "dq-"
+              tester_ips                    = {
+                ops_win_tester_ip = "1.1.1.1"
+                ops_linux_tester_ip = "1.1.1.1"
+                peering_tester_ip = "1.1.1.1"
+              }
+             tester_ports                   = {
+                ops_rdp_port = "3389"
+                ops_ssh_port = "22"
+                peering_http_port = "80"
+             }
               route_table_cidr_blocks       = {
                 ops_cidr = "1.2.3.0/24"
                 apps_cidr = "1.2.3.0/24"
@@ -110,13 +120,13 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpvpnvpc"]["cidr_block"], "10.4.0.0/16")
 
     def test_subnet_acpvpn_cidr_block(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPVPNSubnet"]["cidr_block"], "10.4.1.0/24")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpvpn_subnet"]["cidr_block"], "10.4.1.0/24")
 
     def test_az_vpn(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPVPNSubnet"]["availability_zone"], "eu-west-2a")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpvpn_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_sg_vpn(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.ACPVPN"]["tags.Name"], "dq-acpvpn-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpvpn"]["tags.Name"], "dq-acpvpn-sg")
 
     def test_name_prefix_acpvpnvpc(self):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpvpnvpc"]["tags.Name"], "dq-acpvpn-vpc")

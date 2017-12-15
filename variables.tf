@@ -9,6 +9,16 @@ variable "acpvpn_vpc_subnet_cidr_block" {}
 variable "az" {}
 variable "name_prefix" {}
 
+variable "tester_ips" {
+  description = "Mock EC2 device to test against in Ops and Peering VPC"
+  type        = "map"
+}
+
+variable "tester_ports" {
+  description = "Mock EC2 devices open ports in Ops and Peering VPC"
+  type        = "map"
+}
+
 variable "service" {
   default = "dq-acp"
 }
