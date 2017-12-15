@@ -9,7 +9,7 @@ locals {
 
 module "ACPCICD" {
   source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80"
+  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
   subnet_id  = "${aws_subnet.acpcicd_subnet.id}"
   private_ip = "${var.acp_private_ips["cicd_tester_ip"]}"
 
@@ -50,7 +50,7 @@ resource "aws_security_group" "acpcicd" {
 
 module "ACPOPS" {
   source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80"
+  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
   subnet_id  = "${aws_subnet.acpops_subnet.id}"
   private_ip = "${var.acp_private_ips["ops_tester_ip"]}"
 
@@ -91,8 +91,8 @@ resource "aws_security_group" "acpops" {
 
 module "ACPVPN" {
   source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80"
-  subnet_id  = "${aws_subnet.ACPVPNSubnet.id}"
+  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_rdp=${var.tester_ips["ops_win_tester_ip"]}:${var.tester_ports["ops_rdp_port"]} CHECK_ssh=${var.tester_ips["ops_linux_tester_ip"]}:${var.tester_ports["ops_ssh_port"]}"
+  subnet_id  = "${aws_subnet.acpvpn_subnet.id}"
   private_ip = "${var.acp_private_ips["vpn_tester_ip"]}"
 
   tags = {
@@ -100,7 +100,7 @@ module "ACPVPN" {
   }
 }
 
-resource "aws_security_group" "ACPVPN" {
+resource "aws_security_group" "acpvpn" {
   vpc_id = "${aws_vpc.acpvpnvpc.id}"
 
   tags {
@@ -113,7 +113,7 @@ resource "aws_security_group" "ACPVPN" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.route_table_cidr_blocks["peering_cidr"]}",
+      "${var.route_table_cidr_blocks["ops_cidr"]}",
     ]
   }
 
@@ -131,7 +131,7 @@ resource "aws_security_group" "ACPVPN" {
 #### ACPPROD
 module "ACPPROD" {
   source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80"
+  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
   subnet_id  = "${aws_subnet.acpprod_subnet.id}"
   private_ip = "${var.acp_private_ips["prod_tester_ip"]}"
 
