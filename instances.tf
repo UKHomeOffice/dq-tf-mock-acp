@@ -8,10 +8,11 @@ locals {
 #### ACPCICD
 
 module "ACPCICD" {
-  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
-  subnet_id  = "${aws_subnet.acpcicd_subnet.id}"
-  private_ip = "${var.acp_private_ips["cicd_tester_ip"]}"
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
+  subnet_id       = "${aws_subnet.acpcicd_subnet.id}"
+  private_ip      = "${var.acp_private_ips["cicd_tester_ip"]}"
+  security_groups = "${aws_security_group.acpcicd.id}"
 
   tags = {
     Name = "ec2-${var.service}-cicd-tester-${var.environment}"
@@ -49,10 +50,11 @@ resource "aws_security_group" "acpcicd" {
 #### ACPOPS
 
 module "ACPOPS" {
-  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
-  subnet_id  = "${aws_subnet.acpops_subnet.id}"
-  private_ip = "${var.acp_private_ips["ops_tester_ip"]}"
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
+  subnet_id       = "${aws_subnet.acpops_subnet.id}"
+  private_ip      = "${var.acp_private_ips["ops_tester_ip"]}"
+  security_groups = "${aws_security_group.acpops.id}"
 
   tags = {
     Name = "ec2-${var.service}-ops-tester-${var.environment}"
@@ -90,10 +92,11 @@ resource "aws_security_group" "acpops" {
 #### ACPVPN
 
 module "ACPVPN" {
-  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_rdp=${var.tester_ips["ops_win_tester_ip"]}:${var.tester_ports["ops_rdp_port"]} CHECK_ssh=${var.tester_ips["ops_linux_tester_ip"]}:${var.tester_ports["ops_ssh_port"]}"
-  subnet_id  = "${aws_subnet.acpvpn_subnet.id}"
-  private_ip = "${var.acp_private_ips["vpn_tester_ip"]}"
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_rdp=${var.tester_ips["ops_win_tester_ip"]}:${var.tester_ports["ops_rdp_port"]} CHECK_ssh=${var.tester_ips["ops_linux_tester_ip"]}:${var.tester_ports["ops_ssh_port"]}"
+  subnet_id       = "${aws_subnet.acpvpn_subnet.id}"
+  private_ip      = "${var.acp_private_ips["vpn_tester_ip"]}"
+  security_groups = "${aws_security_group.acpvpn.id}"
 
   tags = {
     Name = "ec2-${var.service}-vpn-tester-${var.environment}"
@@ -130,10 +133,11 @@ resource "aws_security_group" "acpvpn" {
 
 #### ACPPROD
 module "ACPPROD" {
-  source     = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data  = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
-  subnet_id  = "${aws_subnet.acpprod_subnet.id}"
-  private_ip = "${var.acp_private_ips["prod_tester_ip"]}"
+  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}"
+  subnet_id       = "${aws_subnet.acpprod_subnet.id}"
+  private_ip      = "${var.acp_private_ips["prod_tester_ip"]}"
+  security_groups = "${aws_security_group.acpprod.id}"
 
   tags = {
     Name = "ec2-${var.service}-prod-tester-${var.environment}"
