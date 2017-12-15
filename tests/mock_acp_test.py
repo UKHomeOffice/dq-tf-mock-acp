@@ -76,13 +76,13 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpopsvpc"]["cidr_block"], "10.6.0.0/16")
 
     def test_subnet_acpops_cidr_block(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPOPSSubnet"]["cidr_block"], "10.6.1.0/24")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpops_subnet"]["cidr_block"], "10.6.1.0/24")
 
     def test_az_ops(self):
-        self.assertEqual(self.result['mock-acp']["aws_subnet.ACPOPSSubnet"]["availability_zone"], "eu-west-2a")
+        self.assertEqual(self.result['mock-acp']["aws_subnet.acpops_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_sg_sgops(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.ACPOPS"]["tags.Name"], "dq-acpops-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpops"]["tags.Name"], "dq-acpops-sg")
 
     def test_name_prefix_acpopsvpc(self):
         self.assertEqual(self.result['mock-acp']["aws_vpc.acpopsvpc"]["tags.Name"], "dq-acpops-vpc")
