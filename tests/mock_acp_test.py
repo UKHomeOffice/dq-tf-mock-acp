@@ -44,8 +44,10 @@ class TestE2E(unittest.TestCase):
                 ops_rdp_port = "3389"
                 ops_ssh_port = "22"
                 peering_http_port = "80"
-                https_port = "443"
-                postgresql_port = "5432"
+                ext_tableau_port = "1025"
+                int_tableau_port = "1026"
+                gp_master_port = "1027"
+                bdm_web_port = "1028"
              }
               route_table_cidr_blocks       = {
                 ops_cidr = "1.2.3.0/24"
