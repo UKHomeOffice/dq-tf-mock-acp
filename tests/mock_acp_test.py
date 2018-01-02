@@ -35,11 +35,17 @@ class TestE2E(unittest.TestCase):
                 ops_win_tester_ip = "1.1.1.1"
                 ops_linux_tester_ip = "1.1.1.1"
                 peering_tester_ip = "1.1.1.1"
+                ext_tableau = "1.1.1.1"
+                int_tableau = "1.1.1.1"
+                gp_master = "1.1.1.1"
+                bdm_web = "1.1.1.1"
               }
              tester_ports                   = {
                 ops_rdp_port = "3389"
                 ops_ssh_port = "22"
                 peering_http_port = "80"
+                https_port = "443"
+                postgresql_port = "5432"
              }
               route_table_cidr_blocks       = {
                 ops_cidr = "1.2.3.0/24"
