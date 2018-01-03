@@ -8,11 +8,12 @@ locals {
 #### ACPCICD
 
 module "ACPCICD" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]} CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
-  subnet_id       = "${aws_subnet.acpcicd_subnet.id}"
-  private_ip      = "${var.acp_private_ips["cicd_tester_ip"]}"
-  security_groups = ["${aws_security_group.acpcicd.id}"]
+  source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]} CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
+  subnet_id                   = "${aws_subnet.acpcicd_subnet.id}"
+  private_ip                  = "${var.acp_private_ips["cicd_tester_ip"]}"
+  security_groups             = ["${aws_security_group.acpcicd.id}"]
+  associate_public_ip_address = true
 
   tags = {
     Name = "ec2-${var.service}-cicd-tester-${var.environment}"
@@ -50,11 +51,12 @@ resource "aws_security_group" "acpcicd" {
 #### ACPOPS
 
 module "ACPOPS" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}  CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
-  subnet_id       = "${aws_subnet.acpops_subnet.id}"
-  private_ip      = "${var.acp_private_ips["ops_tester_ip"]}"
-  security_groups = ["${aws_security_group.acpops.id}"]
+  source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}  CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
+  subnet_id                   = "${aws_subnet.acpops_subnet.id}"
+  private_ip                  = "${var.acp_private_ips["ops_tester_ip"]}"
+  security_groups             = ["${aws_security_group.acpops.id}"]
+  associate_public_ip_address = true
 
   tags = {
     Name = "ec2-${var.service}-ops-tester-${var.environment}"
@@ -133,11 +135,12 @@ resource "aws_security_group" "acpvpn" {
 
 #### ACPPROD
 module "ACPPROD" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}  CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
-  subnet_id       = "${aws_subnet.acpprod_subnet.id}"
-  private_ip      = "${var.acp_private_ips["prod_tester_ip"]}"
-  security_groups = ["${aws_security_group.acpprod.id}"]
+  source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}  CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
+  subnet_id                   = "${aws_subnet.acpprod_subnet.id}"
+  private_ip                  = "${var.acp_private_ips["prod_tester_ip"]}"
+  security_groups             = ["${aws_security_group.acpprod.id}"]
+  associate_public_ip_address = true
 
   tags = {
     Name = "ec2-${var.service}-prod-tester-${var.environment}"
