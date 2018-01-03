@@ -94,11 +94,12 @@ resource "aws_security_group" "acpops" {
 #### ACPVPN
 
 module "ACPVPN" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "LISTEN_http=0.0.0.0:80 CHECK_rdp=${var.tester_ips["ops_win_tester_ip"]}:${var.tester_ports["ops_rdp_port"]} CHECK_ssh=${var.tester_ips["ops_linux_tester_ip"]}:${var.tester_ports["ops_ssh_port"]}"
-  subnet_id       = "${aws_subnet.acpvpn_subnet.id}"
-  private_ip      = "${var.acp_private_ips["vpn_tester_ip"]}"
-  security_groups = ["${aws_security_group.acpvpn.id}"]
+  source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
+  user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_rdp=${var.tester_ips["ops_win_tester_ip"]}:${var.tester_ports["ops_rdp_port"]} CHECK_ssh=${var.tester_ips["ops_linux_tester_ip"]}:${var.tester_ports["ops_ssh_port"]}"
+  subnet_id                   = "${aws_subnet.acpvpn_subnet.id}"
+  private_ip                  = "${var.acp_private_ips["vpn_tester_ip"]}"
+  security_groups             = ["${aws_security_group.acpvpn.id}"]
+  associate_public_ip_address = true
 
   tags = {
     Name = "ec2-${var.service}-vpn-tester-${var.environment}"
