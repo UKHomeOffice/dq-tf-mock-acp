@@ -1,12 +1,12 @@
 locals {
-  acpprod_naming_suffix = "acpprod-${local.naming_suffix}"
+  prod_naming_suffix = "prod-${local.naming_suffix}"
 }
 
 resource "aws_vpc" "acpprodvpc" {
   cidr_block = "${var.acpprod_cidr_block}"
 
   tags {
-    Name = "vpc-${local.acpprod_naming_suffix}"
+    Name = "vpc-${local.prod_naming_suffix}"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "acp_prod_igw" {
   vpc_id = "${aws_vpc.acpprodvpc.id}"
 
   tags {
-    Name = "igw-${local.acpprod_naming_suffix}"
+    Name = "igw-${local.prod_naming_suffix}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "acpprod_subnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "subnet-${local.acpprod_naming_suffix}"
+    Name = "subnet-${local.prod_naming_suffix}"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_route_table" "acpprod_route_table" {
   }
 
   tags {
-    Name = "route-table-${local.acpprod_naming_suffix}"
+    Name = "route-table-${local.prod_naming_suffix}"
   }
 }
 

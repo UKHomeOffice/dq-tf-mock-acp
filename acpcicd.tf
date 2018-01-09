@@ -1,12 +1,12 @@
 locals {
-  acpcicd_naming_suffix = "acpcicd-${local.naming_suffix}"
+  cicd_naming_suffix = "cicd-${local.naming_suffix}"
 }
 
 resource "aws_vpc" "acpcicdvpc" {
   cidr_block = "${var.acpcicd_cidr_block}"
 
   tags {
-    Name = "vpc-${local.acpcicd_naming_suffix}"
+    Name = "vpc-${local.cicd_naming_suffix}"
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "acp_cicd_igw" {
   vpc_id = "${aws_vpc.acpcicdvpc.id}"
 
   tags {
-    Name = "igw-${local.acpcicd_naming_suffix}"
+    Name = "igw-${local.cicd_naming_suffix}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_subnet" "acpcicd_subnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "subnet-${local.acpcicd_naming_suffix}"
+    Name = "subnet-${local.cicd_naming_suffix}"
   }
 }
 
@@ -53,7 +53,7 @@ resource "aws_route_table" "acpcicd_route_table" {
   }
 
   tags {
-    Name = "route-table--${local.acpcicd_naming_suffix}"
+    Name = "route-table--${local.cicd_naming_suffix}"
   }
 }
 
