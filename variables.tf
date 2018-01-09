@@ -7,7 +7,11 @@ variable "acpprod_vpc_subnet_cidr_block" {}
 variable "acpvpn_cidr_block" {}
 variable "acpvpn_vpc_subnet_cidr_block" {}
 variable "az" {}
-variable "name_prefix" {}
+
+variable "naming_suffix" {
+  default     = false
+  description = "Naming suffix for tags, value passed from dq-tf-apps"
+}
 
 variable "tester_ips" {
   description = "Mock EC2 device to test against in Ops and Peering VPC"
@@ -17,14 +21,6 @@ variable "tester_ips" {
 variable "tester_ports" {
   description = "Mock EC2 devices open ports in Ops and Peering VPC"
   type        = "map"
-}
-
-variable "service" {
-  default = "dq-acp"
-}
-
-variable "environment" {
-  default = "preprod"
 }
 
 variable "route_table_cidr_blocks" {
