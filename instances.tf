@@ -7,7 +7,7 @@ module "ACPCICD" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "tester-${local.acpcicd_naming_suffix}"
+    Name = "tester-${local.cicd_naming_suffix}"
   }
 }
 
@@ -15,7 +15,7 @@ resource "aws_security_group" "acpcicd" {
   vpc_id = "${aws_vpc.acpcicdvpc.id}"
 
   tags {
-    Name = "sg-${local.acpcicd_naming_suffix}"
+    Name = "sg-${local.cicd_naming_suffix}"
   }
 
   ingress {
@@ -48,7 +48,7 @@ module "ACPOPS" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "tester-${local.acpops_naming_suffix}"
+    Name = "tester-${local.ops_naming_suffix}"
   }
 }
 
@@ -56,7 +56,7 @@ resource "aws_security_group" "acpops" {
   vpc_id = "${aws_vpc.acpopsvpc.id}"
 
   tags {
-    Name = "sg-${local.acpops_naming_suffix}"
+    Name = "sg-${local.ops_naming_suffix}"
   }
 
   ingress {
@@ -91,7 +91,7 @@ module "ACPVPN" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "tester-${local.acpvpn_naming_suffix}"
+    Name = "tester-${local.vpn_naming_suffix}"
   }
 }
 
@@ -99,7 +99,7 @@ resource "aws_security_group" "acpvpn" {
   vpc_id = "${aws_vpc.acpvpnvpc.id}"
 
   tags {
-    Name = "sg-${local.acpvpn_naming_suffix}"
+    Name = "sg-${local.vpn_naming_suffix}"
   }
 
   ingress {
@@ -133,7 +133,7 @@ module "ACPPROD" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "tester-${local.acpprod_naming_suffix}"
+    Name = "tester-${local.prod_naming_suffix}"
   }
 }
 
@@ -141,7 +141,7 @@ resource "aws_security_group" "acpprod" {
   vpc_id = "${aws_vpc.acpprodvpc.id}"
 
   tags {
-    Name = "sg-${local.acpprod_naming_suffix}"
+    Name = "sg-${local.prod_naming_suffix}"
   }
 
   ingress {

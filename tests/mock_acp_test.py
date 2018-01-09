@@ -30,7 +30,7 @@ class TestE2E(unittest.TestCase):
               acpvpn_cidr_block             = "10.4.0.0/16"
               acpvpn_vpc_subnet_cidr_block  = "10.4.1.0/24"
               az                            = "eu-west-2a"
-              name_prefix                   = "dq-"
+              naming_suffix                 = "preprod-dq"
               tester_ips                    = {
                 ops_win_tester_ip = "1.1.1.1"
                 ops_linux_tester_ip = "1.1.1.1"
@@ -82,11 +82,11 @@ class TestE2E(unittest.TestCase):
     def test_az(self):
         self.assertEqual(self.result['mock-acp']["aws_subnet.acpcicd_subnet"]["availability_zone"], "eu-west-2a")
 
-    def test_name_prefix_sg_cicd(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.acpcicd"]["tags.Name"], "dq-acpcicd-sg")
+    def test_name_sg_cicd(self):
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpcicd"]["tags.Name"], "sg-cicd-mock-acp-preprod-dq")
 
-    def test_name_prefix_acpcicdvpc(self):
-        self.assertEqual(self.result['mock-acp']["aws_vpc.acpcicdvpc"]["tags.Name"], "dq-acpcicd-vpc")
+    def test_name_acpcicdvpc(self):
+        self.assertEqual(self.result['mock-acp']["aws_vpc.acpcicdvpc"]["tags.Name"], "vpc-cicd-mock-acp-preprod-dq")
 
 #### ACPOPS
 
@@ -100,10 +100,10 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_subnet.acpops_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_sg_sgops(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.acpops"]["tags.Name"], "dq-acpops-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpops"]["tags.Name"], "sg-ops-mock-acp-preprod-dq")
 
-    def test_name_prefix_acpopsvpc(self):
-        self.assertEqual(self.result['mock-acp']["aws_vpc.acpopsvpc"]["tags.Name"], "dq-acpops-vpc")
+    def test_name_acpopsvpc(self):
+        self.assertEqual(self.result['mock-acp']["aws_vpc.acpopsvpc"]["tags.Name"], "vpc-ops-mock-acp-preprod-dq")
 
 # #### ACPPROD
 
@@ -117,10 +117,10 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['mock-acp']["aws_subnet.acpprod_subnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_sg_prod(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.acpprod"]["tags.Name"], "dq-acpprod-sg")
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpprod"]["tags.Name"], "sg-prod-mock-acp-preprod-dq")
 
-    def test_name_prefix_acpprodvpc(self):
-        self.assertEqual(self.result['mock-acp']["aws_vpc.acpprodvpc"]["tags.Name"], "dq-acpprod-vpc")
+    def test_name_prodvpc(self):
+        self.assertEqual(self.result['mock-acp']["aws_vpc.acpprodvpc"]["tags.Name"], "vpc-prod-mock-acp-preprod-dq")
 
 # #### ACPVPN
 
@@ -133,11 +133,11 @@ class TestE2E(unittest.TestCase):
     def test_az_vpn(self):
         self.assertEqual(self.result['mock-acp']["aws_subnet.acpvpn_subnet"]["availability_zone"], "eu-west-2a")
 
-    def test_name_sg_vpn(self):
-        self.assertEqual(self.result['mock-acp']["aws_security_group.acpvpn"]["tags.Name"], "dq-acpvpn-sg")
+    def test_name_suffix_sg_vpn(self):
+        self.assertEqual(self.result['mock-acp']["aws_security_group.acpvpn"]["tags.Name"], "sg-vpn-mock-acp-preprod-dq")
 
-    def test_name_prefix_acpvpnvpc(self):
-        self.assertEqual(self.result['mock-acp']["aws_vpc.acpvpnvpc"]["tags.Name"], "dq-acpvpn-vpc")
+    def test_name_suffix_vpnvpc(self):
+        self.assertEqual(self.result['mock-acp']["aws_vpc.acpvpnvpc"]["tags.Name"], "vpc-vpn-mock-acp-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,12 +1,12 @@
 locals {
-  acpvpn_naming_suffix = "acpvpn-${local.naming_suffix}"
+  vpn_naming_suffix = "vpn-${local.naming_suffix}"
 }
 
 resource "aws_vpc" "acpvpnvpc" {
   cidr_block = "${var.acpvpn_cidr_block}"
 
   tags {
-    Name = "vpc-${local.acpvpn_naming_suffix}"
+    Name = "vpc-${local.vpn_naming_suffix}"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_subnet" "acpvpn_subnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "subnet-${local.acpvpn_naming_suffix}"
+    Name = "subnet-${local.vpn_naming_suffix}"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_internet_gateway" "acpvpn_igw" {
   vpc_id = "${aws_vpc.acpvpnvpc.id}"
 
   tags {
-    Name = "igw-${local.acpvpn_naming_suffix}"
+    Name = "igw-${local.vpn_naming_suffix}"
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_route_table" "acpvpn_route_table" {
   }
 
   tags {
-    Name = "route-table-${local.acpvpn_naming_suffix}"
+    Name = "route-table-${local.vpn_naming_suffix}"
   }
 }
 
