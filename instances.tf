@@ -1,12 +1,3 @@
-locals {
-  acpcicd_tag = "${var.name_prefix}acpcicd-"
-  acpops_tag  = "${var.name_prefix}acpops-"
-  acpprod_tag = "${var.name_prefix}acpprod-"
-  acpvpn_tag  = "${var.name_prefix}acpvpn-"
-}
-
-#### ACPCICD
-
 module "ACPCICD" {
   source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
   user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]} CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
@@ -16,7 +7,7 @@ module "ACPCICD" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "ec2-${var.service}-cicd-tester-${var.environment}"
+    Name = "tester-${local.acpcicd_naming_suffix}"
   }
 }
 
@@ -24,7 +15,7 @@ resource "aws_security_group" "acpcicd" {
   vpc_id = "${aws_vpc.acpcicdvpc.id}"
 
   tags {
-    Name = "${local.acpcicd_tag}sg"
+    Name = "sg-${local.acpcicd_naming_suffix}"
   }
 
   ingress {
@@ -48,8 +39,6 @@ resource "aws_security_group" "acpcicd" {
   }
 }
 
-#### ACPOPS
-
 module "ACPOPS" {
   source                      = "github.com/UKHomeOffice/connectivity-tester-tf"
   user_data                   = "LISTEN_http=0.0.0.0:80 CHECK_http=${var.tester_ips["peering_tester_ip"]}:${var.tester_ports["peering_http_port"]}  CHECK_ext_tableau=${var.tester_ips["ext_tableau"]}:${var.tester_ports["ext_tableau_port"]} CHECK_int_tableau=${var.tester_ips["int_tableau"]}:${var.tester_ports["int_tableau_port"]} CHECK_bdm_web=${var.tester_ips["bdm_web"]}:${var.tester_ports["bdm_web_port"]} CHECK_gp_master=${var.tester_ips["gp_master"]}:${var.tester_ports["gp_master_port"]}"
@@ -59,7 +48,7 @@ module "ACPOPS" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "ec2-${var.service}-ops-tester-${var.environment}"
+    Name = "tester-${local.acpops_naming_suffix}"
   }
 }
 
@@ -67,7 +56,7 @@ resource "aws_security_group" "acpops" {
   vpc_id = "${aws_vpc.acpopsvpc.id}"
 
   tags {
-    Name = "${local.acpops_tag}sg"
+    Name = "sg-${local.acpops_naming_suffix}"
   }
 
   ingress {
@@ -102,7 +91,7 @@ module "ACPVPN" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "ec2-${var.service}-vpn-tester-${var.environment}"
+    Name = "tester-${local.acpvpn_naming_suffix}"
   }
 }
 
@@ -110,7 +99,7 @@ resource "aws_security_group" "acpvpn" {
   vpc_id = "${aws_vpc.acpvpnvpc.id}"
 
   tags {
-    Name = "${local.acpvpn_tag}sg"
+    Name = "sg-${local.acpvpn_naming_suffix}"
   }
 
   ingress {
@@ -144,7 +133,7 @@ module "ACPPROD" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "ec2-${var.service}-prod-tester-${var.environment}"
+    Name = "tester-${local.acpprod_naming_suffix}"
   }
 }
 
@@ -152,7 +141,7 @@ resource "aws_security_group" "acpprod" {
   vpc_id = "${aws_vpc.acpprodvpc.id}"
 
   tags {
-    Name = "${local.acpprod_tag}sg"
+    Name = "sg-${local.acpprod_naming_suffix}"
   }
 
   ingress {
