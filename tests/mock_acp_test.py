@@ -38,7 +38,6 @@ class TestE2E(unittest.TestCase):
                 ext_tableau = "1.1.1.1"
                 int_tableau = "1.1.1.1"
                 gp_master = "1.1.1.1"
-                bdm_web = "1.1.1.1"
               }
              tester_ports                   = {
                 ops_rdp_port = "3389"
@@ -47,7 +46,6 @@ class TestE2E(unittest.TestCase):
                 ext_tableau_port = "1025"
                 int_tableau_port = "1026"
                 gp_master_port = "1027"
-                bdm_web_port = "1028"
              }
               route_table_cidr_blocks       = {
                 ops_cidr = "1.2.3.0/24"
